@@ -1,0 +1,52 @@
+weather-chatbot/
+├─ frontend/                 # Frontend theo module-based
+│   ├─ modules/
+│   │   ├─ chat/
+│   │   │   ├─ components/
+│   │   │   ├─ pages/          # FeedPage.tsx → route /feed
+│   │   │   └─ hooks/
+│   │   └─ profile/
+│   ├─ shared/                 # Reusable components, utils, types
+│   ├─ services/               # API calls tới backend
+│   └─ store/                  # State management (Zustand/Redux)
+│
+├─ services/                  # Backend microservices
+│   ├─ shared/                # Code, constants, types, utils dùng chung
+│   ├─ api-gateway/           # Node.js: định tuyến request tới các service
+│   │   ├─ src/
+│   │   └─ Dockerfile
+│   ├─ user-service/          # Node.js: quản lý user
+│   │   ├─ src/
+│   │   └─ Dockerfile
+│   ├─ data-service/          # Node.js: quản lý dữ liệu domain
+│   │   ├─ src/
+│   │   └─ Dockerfile
+│   └─ ai-service/            # Python/Flask: xử lý AI, fine-tune, inference
+│       ├─ app/
+│       │   ├─ api/           # Endpoints: /predict, /chat
+│       │   │   ├─ __init__.py
+│       │   │   ├─ routes.py
+│       │   │   └─ schemas.py
+│       │   ├─ fine_tune/     # Dataset, train script, config
+│       │   │   ├─ dataset.py
+│       │   │   ├─ train.py
+│       │   │   └─ config.yaml
+│       │   ├─ models/        # Lưu model, tokenizer, weights
+│       │   │   ├─ chatbot_model/
+│       │   │   │   ├─ model.pkl
+│       │   │   │   └─ config.json
+│       │   │   └─ tokenizer/
+│       │   │       ├─ tokenizer.pkl
+│       │   │       └─ vocab.json
+│       │   ├─ utils/         # preprocess, tokenize, postprocess, logger
+│       │   │   ├─ preprocess.py
+│       │   │   ├─ tokenize.py
+│       │   │   ├─ postprocess.py
+│       │   │   └─ logger.py
+│       │   └─ main.py        # Entry point Flask/FastAPI
+│       ├─ requirements.txt
+│       └─ Dockerfile
+├─ docs/                       # Document, Introduce about project
+├─ scripts/                    # Deployment, migration, CI/CD scripts
+├─ docker-compose.yml           # Chạy tất cả services cùng lúc
+└─ README.md
