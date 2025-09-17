@@ -1,43 +1,39 @@
-import re
+from processor import Preprocessor
+from tokenizer import Tokenizer
+from model import Transformer
 import torch
-import torch.nn as nn
+import math
 
-def clean_text(text):
-    text = text.strip()
-    text = re.sub(r"\s+", " ", text)   # collapse spaces
-    return text
+# data_txt = Preprocessor.loadText(['./data/dataset.txt'])
 
-def word_tokenize(text):
-    # lowercase optional
-    text = text.lower()
-    # remove punctuation (optional)
-    text = re.sub(r"[^a-zA-Z0-9À-ỹ\s]", "", text)
-    return text.split()
+# tokenizer = Tokenizer()
+# tokenizer.buildVocabs(data_txt)
 
-def encode(sentence, dict):
-    return [dict[word] for word in sentence.split(' ')]
+# vocab_size = len(tokenizer.word2idx)
+# model = Transformer(vocab_size)
 
-data_raw = ''
-with open('dataset.txt', 'r', encoding='utf-8') as f:
-    data_raw = f.read()
+# sentence = 'chia đều cho tất cả chúng'
+# ids = tokenizer.encode(sentence)
 
-data = clean_text(data_raw)
-words = word_tokenize(data)
+# x = torch.tensor([ids])
 
-vocabs = set(words)
-encode_dict = {text: i for i, text in enumerate(vocabs)}
-decode_dict = {i: text for i, text in enumerate(vocabs)}
+# with torch.no_grad():
+#     output = model(x)
+
+# last_token_logits = output[0, -1, :]
+
+# pred_id = torch.argmax(last_token_logits).item()
+# pred_word = tokenizer.idx2word[pred_id]
+
+# print("Predicted next word:", pred_word)
+
+d_model = 16
+max_len = 10
+
+div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model))
+
+position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)
+pe = torch.zeros(max_len, d_model)
 
 
-vocab_size = len(vocabs)
-embedding_dim = 64
-
-embedding = nn.Embedding(num_embeddings=vocab_size, embedding_dim=embedding_dim)
-
-# Example: encode a sentence to IDs
-sentence_ids = torch.tensor(encode("Xin chào bạn".lower(), encode_dict))  # [2, 3, 4]
-
-# Get embeddings
-embedded = embedding(sentence_ids)  # shape: [seq_len, embedding_dim]
-
-print(sentence_ids)  # e.g., torch.Size([3, 128])
+print(pe[:, 0::2])
