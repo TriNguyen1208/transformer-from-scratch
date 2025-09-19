@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --background-sider: #181818;
+  --background-maincontent: #212121;
+  --text-primary: #fff;
+}
+
+@theme {
+    --color-sider: #181818;
+    --color-main: #212121;
+    --color-text-primary: #fff;
+    --color-hover-button: #424242;
+}
+/* Toàn cục: tất cả phần tử có scrollbar */
+* {
+    scrollbar-width: inherit;              /* Firefox */
+    scrollbar-color: #9b9b9b4d #181818;   /* Firefox */
+}
+
+
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
