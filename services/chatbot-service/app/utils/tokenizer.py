@@ -1,4 +1,5 @@
 import re
+import torch.nn as nn
 
 class Tokenizer:
     def __init__(self):
@@ -8,7 +9,6 @@ class Tokenizer:
 
         self.UNK_ID = None
         self.EOS_ID = None
-
     def tokenizeWords(self, text):
         '''
         This function is used to split word from the whole text
