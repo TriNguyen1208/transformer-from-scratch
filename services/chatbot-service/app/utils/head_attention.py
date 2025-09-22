@@ -3,6 +3,7 @@ from app.config.constant import embed_dim, head_size, seq_len, drop_out
 import torch
 from torch.nn import functional as F
 import math
+
 class Head(nn.Module):
     def __init__(self):
         super().__init__()

@@ -24,7 +24,8 @@ class Tokenizer:
         '''
 
         text = text.lower()
-        tokens = re.findall(r"\w+|[.,!?;]", text, flags=re.UNICODE)
+        # tokens = re.findall(r"\w+|[.,!?;]", text, flags=re.UNICODE)
+        tokens = re.findall(r"\w+", text, flags=re.UNICODE)
         return tokens
 
     def buildVocabs(self, text):

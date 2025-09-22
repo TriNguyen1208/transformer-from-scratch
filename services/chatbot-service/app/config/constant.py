@@ -8,12 +8,11 @@ from app.utils.processor import Preprocessor
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FILE_NAME = 'dataset.txt'
 embed_dim = 128
-batch_size = 64
 learning_rate = 1e-4
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 torch.manual_seed(1337)
 seq_len = 50
-batch_size = 10
+batch_size = 2
 max_iter = 5000
 num_head = 4
 head_size = embed_dim // num_head
@@ -32,3 +31,11 @@ vocab_size = len(tokenizer.word2idx)
 
 #encode text
 text_encode = torch.tensor(tokenizer.encode(text), dtype=torch.long)
+
+
+# Checkpoint
+checkpoint_path = "transformer_model.pkl"  # path to save the model
+
+# Training
+generate_every = 100  # generate text every N steps
+max_gen_len = 100  # tokens to generate each time
