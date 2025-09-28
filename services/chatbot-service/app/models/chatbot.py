@@ -45,7 +45,4 @@ prompt = 'Cùng với đó mưa lớn do bão có khả năng gây ra ngập ún
 ids = GLOBAL_TOKENIZER.encode(prompt)
 
 predicted_id = predict_next_token(model, ids)
-# print(GLOBAL_TOKENIZER.idx2word[predicted_id])
-
-for id, word in GLOBAL_TOKENIZER.idx2word.items():
-    print(f'{id}: {word}|', end='\n')
+print(GLOBAL_TOKENIZER.idx2word[predicted_id])
