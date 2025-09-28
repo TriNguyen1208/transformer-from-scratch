@@ -19,7 +19,8 @@ class Preprocessor:
 
         for file in files:
             with open(file, 'r', encoding='utf-8') as f_r:
-                text += re.sub(r'\d+', '', f_r.read()).replace('\n', ' ').replace('\t', ' ') + ' '
+                # text += re.sub(r'\d+', '', f_r.read()).replace('\n', ' ').replace('\t', ' ') + ' '
+                text += f_r.read().replace('\n', ' ').replace('\t', ' ') + ' '
 
         return text
 

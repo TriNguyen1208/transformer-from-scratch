@@ -2,19 +2,19 @@ import os
 from app.config.constant import DEVICE, LEARNING_RATE, NUM_EPOCHS, BATCH_SIZE, CHECKPOINT_PATH
 from app.layers.transformer import TransformerModel
 from app.utils import getBatch
-from app.config.config import ENCODED_SENTENCES
-from app.training.checkpoint import saveCheckpoint, loadCheckpoint
+from app.config.config import ENCODED_SENTENCES, SENTENCES
+from app.training.checkpoint import saveCheckpoint, loadCheckpointEpoch
 import torch
 
 def trainModel(model, encoded_text, optimizer, num_epochs, start_epoch=1):
     if start_epoch == num_epochs + 1:
         print('Model is trained with full epoches')
         return
-    
+
     model.train()
 
     steps_per_epoch = len(encoded_text) // BATCH_SIZE
-    log_interval = max(1, 10)
+    log_interval = 10
 
     print(f"Starting training on {DEVICE} for {num_epochs + 1 - start_epoch} epoch(s) left...")
 
@@ -52,15 +52,13 @@ model = TransformerModel()
 model.to(DEVICE)
 optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE)
 
-
 start_epoch = 1
 
 try:
     if os.path.exists(CHECKPOINT_PATH):
-        start_epoch = loadCheckpoint(model, optimizer, CHECKPOINT_PATH)
+        start_epoch = loadCheckpointEpoch(model, optimizer, CHECKPOINT_PATH)
 
 except Exception as e:
     print(f'Checkpoint file does not exist! Starting from epoch 1. Exception: {e}')
-
 
 trainModel(model, ENCODED_SENTENCES, optimizer, NUM_EPOCHS, start_epoch)

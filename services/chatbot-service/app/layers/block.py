@@ -12,9 +12,11 @@ class TransformerBlock(nn.Module):
         self.layer_norm_1 = nn.LayerNorm(EMBED_DIM)
         self.layer_norm_2 = nn.LayerNorm(EMBED_DIM)
 
-    def forward(self, input):
-        input = input + self.multi_head(input)
+    def forward(self, input, mask=None):
+        input = input + self.multi_head(input, mask)
         self.layer_norm_1(input)
+
         input = input + self.feed_forward(input)
         self.layer_norm_2(input)
+        
         return input

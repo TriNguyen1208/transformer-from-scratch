@@ -41,8 +41,11 @@ def predict_next_token(model, input_token_ids):
 
 
 model = loadModel(CHECKPOINT_PATH)
-prompt = 'Nguyễn Nhật'
+prompt = 'Cùng với đó mưa lớn do bão có khả năng gây ra ngập úng ở'
 ids = GLOBAL_TOKENIZER.encode(prompt)
 
 predicted_id = predict_next_token(model, ids)
-print(GLOBAL_TOKENIZER.idx2word[predicted_id])
+# print(GLOBAL_TOKENIZER.idx2word[predicted_id])
+
+for id, word in GLOBAL_TOKENIZER.idx2word.items():
+    print(f'{id}: {word}|', end='\n')

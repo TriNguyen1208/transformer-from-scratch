@@ -14,10 +14,9 @@ class MultiHeadAttention(nn.Module):
         self.proj = nn.Linear(HEAD_SIZE * NUM_HEAD, EMBED_DIM) #Buoc LinearProjection la chuyen shape (head_size * num_head) sang embed_dim
         self.dropout = nn.Dropout(DROP_OUT) #co 10% la bo bot di 1 so neuron
 
-    def forward(self, input):
-        out = torch.cat([h(input) for h in self.heads], dim=-1) #out co shape la (batch_size, seq_len, head_size * num_head)
+    def forward(self, input, mask=None):
+        out = torch.cat([h(input, mask) for h in self.heads], dim=-1) #out co shape la (batch_size, seq_len, head_size * num_head)
         
-        #Note: con thieu buoc dropout.
         out = self.dropout(self.proj(out))
 
         return out #shape luc nay la (batch_size, seq_len, embed_dim)
