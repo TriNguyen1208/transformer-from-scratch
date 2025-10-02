@@ -26,7 +26,7 @@ class Tokenizer:
             The list that contains each token including words
         '''
        
-        return re.findall(r"\w+", sentence.lower(), flags=re.UNICODE)
+        return re.split(r"(?<!\d),(?!\d)|[^\wÀ-ỹ\-]+", sentence.lower())
 
     def modifyTokens(self, tokens):
         '''
@@ -42,6 +42,8 @@ class Tokenizer:
             The list that contains the initial tokens and special tokens <PAD>, <EOS>
         '''
         
+        tokens = [token for token in tokens if (token != '' and token != '-')]
+
         if len(tokens) >= MAX_SEQ_LEN:
            tokens = tokens[:MAX_SEQ_LEN]
            tokens[MAX_SEQ_LEN - 1] = '<EOS>'

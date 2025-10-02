@@ -1,4 +1,5 @@
 import re
+import json
 
 class Preprocessor:
     def loadText(files):
@@ -39,3 +40,11 @@ class Preprocessor:
         '''
         
         return re.split(r'(?<=[.!?:])\s+', text)
+    
+class JSONProcessor:
+    def loadJSON(files):
+        for file in files:
+            with open(file, 'r', encoding='utf-8') as f_r:
+                data = json.load(f_r)
+
+        return data

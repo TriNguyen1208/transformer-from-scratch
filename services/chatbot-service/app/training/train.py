@@ -1,6 +1,6 @@
 import os
 from app.config.constant import DEVICE, LEARNING_RATE, NUM_EPOCHS, BATCH_SIZE, CHECKPOINT_PATH
-from app.layers.transformer import TransformerModel
+from app.layers.transformer import TransformerModel, LibTransformerModel
 from app.utils import getBatch
 from app.config.config import ENCODED_SENTENCES, SENTENCES
 from app.training.checkpoint import saveCheckpoint, loadCheckpointEpoch

@@ -1,6 +1,5 @@
 import torch
 from app.config.constant import DEVICE
-from app.layers.transformer import TransformerModel
 
 def saveCheckpoint(model, optimizer, epoch, loss, filename):
     print(f'Saving checkpoint for epoch {epoch}...')
@@ -34,9 +33,7 @@ def loadCheckpointEpoch(model, optimizer, filename):
     # Return the restored epoch number so you can resume training from there
     return epoch + 1
 
-def loadModel(checkpoint_path):
-    model = TransformerModel()
-
+def loadModel(model, checkpoint_path):
     checkpoint = torch.load(checkpoint_path)
     model.load_state_dict(checkpoint['model_state_dict'])
 

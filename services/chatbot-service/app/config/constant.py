@@ -6,7 +6,7 @@ EMBED_DIM = 256
 LEARNING_RATE = 1e-5
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-MAX_SEQ_LEN = 32
+MAX_SEQ_LEN = 64
 BATCH_SIZE = 64
 MAX_ITER = 50
 NUM_HEAD = 4

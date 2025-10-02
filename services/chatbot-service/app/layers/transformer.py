@@ -40,3 +40,25 @@ class TransformerModel(nn.Module):
             return logits, loss
 
         return logits, None
+
+from app.config.constant import EMBED_DIM, NUM_HEAD, NUM_LAYER
+
+class LibTransformerModel(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.embedding = nn.Embedding(vocab_size, EMBED_DIM)
+        encoder_layer = nn.TransformerEncoderLayer(EMBED_DIM, NUM_HEAD, 4 * EMBED_DIM, batch_first=True)
+        self.transformer = nn.TransformerEncoder(encoder_layer, num_layers=NUM_LAYER)
+        self.fc = nn.Linear(EMBED_DIM, vocab_size)
+
+    def forward(self, x, target=None):
+        x = self.embedding(x)
+        x = self.transformer(x)
+
+        logits = self.fc(x)
+
+        if target is not None:
+            loss = F.cross_entropy(logits.view(-1, logits.size(-1)), target.view(-1), ignore_index=GLOBAL_TOKENIZER.PAD_ID)
+            return logits, loss
+
+        return logits, None
