@@ -1,9 +1,11 @@
 import os
 from app.config.constant import DEVICE, LEARNING_RATE, NUM_EPOCHS, BATCH_SIZE, CHECKPOINT_PATH
 from app.layers.transformer import TransformerModel, LibTransformerModel
-from app.utils import getBatch
+from app.utils.utils import getBatch
 from app.config.config import ENCODED_SENTENCES, SENTENCES
 from app.training.checkpoint import saveCheckpoint, loadCheckpointEpoch
+from sklearn.metrics import accuracy_score
+from torch.nn import functional as F
 import torch
 
 def trainModel(model, encoded_text, optimizer, num_epochs, start_epoch=1):
@@ -20,15 +22,16 @@ def trainModel(model, encoded_text, optimizer, num_epochs, start_epoch=1):
 
     for epoch in range(start_epoch, num_epochs + 1):
         total_loss = 0.0
-        
+        start_index = 0
+
         for step in range(steps_per_epoch):
             # 1. GET BATCH (x: input, y: target/label)
             # Pass the encode_text as the data source
-            x, y = getBatch(encoded_text)
+            x, y, current_index = getBatch(encoded_text, start_index)
 
             # 2. FORWARD PASS AND LOSS CALCULATION
             # The model returns logits and the calculated loss
-            _, loss = model(x, y)
+            logits, loss = model(x, y)
             
             # 3. BACKWARD PASS AND OPTIMIZATION
             optimizer.zero_grad() # Clear previous gradients
@@ -38,7 +41,9 @@ def trainModel(model, encoded_text, optimizer, num_epochs, start_epoch=1):
             total_loss += loss.item()
 
             if step % log_interval == 0 and step > 0:
-                print(f"  | Epoch {epoch}/{num_epochs} | Step {step}/{steps_per_epoch} | Current Batch Loss: {loss.item():.4f}")
+                print(f"  | Epoch {epoch}/{num_epochs} | Step {step}/{steps_per_epoch} | Current Batch Loss: {loss.item():.4f} | Accuracy Score: {accuracy:.4f}")
+
+            start_index = current_index
 
         # Print training status
         avg_loss = total_loss / steps_per_epoch

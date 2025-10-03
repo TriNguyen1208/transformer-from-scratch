@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import re
+from app.config.constant import DATASET_PATH
 from collections import deque
 
 class FetchData:
@@ -61,5 +62,6 @@ class FetchData:
 
 
 # print(FetchData.get_data_page("https://thanhnien.vn/sieu-bao-ragasa-con-manh-hon-ca-yagi-185250922095525435.htm", ""))
-# data = FetchData.get_data("https://vnexpress.net/chu-de/du-bao-thoi-tiet-7989", prefix='https://vnexpress.net', depth=1, pattern=re.compile(r'/.*-(\d{7})\.htm$|/(\d{7})\.htm$'))
-# FetchData.write_file(data, filename='hello.txt')
+data = FetchData.get_data("https://thanhnien.vn/thoi-tiet-tags486004.html", depth=1)
+FetchData.write_file(data, filename=DATASET_PATH)
+# print(FetchData.get_data_page("https://thanhnien.vn/sieu-bao-ragasa-con-manh-hon-ca-yagi-185250922095525435.htm"))
