@@ -59,9 +59,3 @@ class FetchData:
         open(file=filename, mode='a', encoding='utf-8').write(data)
             
     # def get_data(root: str, prefix: str, depth: int = 1):
-
-
-# print(FetchData.get_data_page("https://thanhnien.vn/sieu-bao-ragasa-con-manh-hon-ca-yagi-185250922095525435.htm", ""))
-data = FetchData.get_data("https://thanhnien.vn/thoi-tiet-tags486004.html", depth=1)
-FetchData.write_file(data, filename=DATASET_PATH)
-# print(FetchData.get_data_page("https://thanhnien.vn/sieu-bao-ragasa-con-manh-hon-ca-yagi-185250922095525435.htm"))
