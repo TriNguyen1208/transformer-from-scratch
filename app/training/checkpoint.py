@@ -1,7 +1,7 @@
 import torch
 from app.config.constant import DEVICE
 
-def saveCheckpoint(model, optimizer, epoch, loss, filename):
+def save_checkpoint(model, optimizer, epoch, loss, filename):
     print(f'Saving checkpoint for epoch {epoch}...')
 
     checkpoint = {
@@ -15,7 +15,7 @@ def saveCheckpoint(model, optimizer, epoch, loss, filename):
     print('Checkpoint saved succesfully')
 
 
-def loadCheckpointEpoch(model, optimizer, filename):
+def load_checkpoint_epoch(model, optimizer, filename):
     # Load dictionary
     checkpoint = torch.load(filename)
 
@@ -33,7 +33,7 @@ def loadCheckpointEpoch(model, optimizer, filename):
     # Return the restored epoch number so you can resume training from there
     return epoch + 1
 
-def loadModel(model, checkpoint_path):
+def load_model(model, checkpoint_path):
     checkpoint = torch.load(checkpoint_path)
     model.load_state_dict(checkpoint['model_state_dict'])
 

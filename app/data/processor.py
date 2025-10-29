@@ -2,7 +2,7 @@ import re
 import json
 
 class Preprocessor:
-    def loadText(files):
+    def load_text(files):
         '''
         This function is used to load the data (txt format)
 
@@ -20,12 +20,12 @@ class Preprocessor:
 
         for file in files:
             with open(file, 'r', encoding='utf-8') as f_r:
-                # text += re.sub(r'\d+', '', f_r.read()).replace('\n', ' ').replace('\t', ' ') + ' '
+                #Relace '\n' to ' ' and '\t' to ' '
                 text += f_r.read().replace('\n', ' ').replace('\t', ' ') + ' '
 
         return text
 
-    def splitIntoSentences(text):
+    def split_into_sentences(text):
         '''
         This function is used to split the whole text into multiple sentences
 
@@ -42,7 +42,7 @@ class Preprocessor:
         return re.split(r'(?<=[.!?:])\s+', text)
     
 class JSONProcessor:
-    def loadJSON(files):
+    def load_json(files):
         for file in files:
             with open(file, 'r', encoding='utf-8') as f_r:
                 data = json.load(f_r)

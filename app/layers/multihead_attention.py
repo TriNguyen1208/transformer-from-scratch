@@ -7,9 +7,8 @@ class MultiHeadAttention(nn.Module):
     def __init__(self):
         super().__init__()
         
-        assert EMBED_DIM % NUM_HEAD == 0
+        assert EMBED_DIM % NUM_HEAD == 0 #Not divisible => Error
         
-        #duyet qua (NUM_HEAD) lan Head
         self.heads = nn.ModuleList([Head() for _ in range(NUM_HEAD)])
         self.proj = nn.Linear(HEAD_SIZE * NUM_HEAD, EMBED_DIM) #Buoc LinearProjection la chuyen shape (head_size * num_head) sang embed_dim
         self.dropout = nn.Dropout(DROP_OUT) #co 10% la bo bot di 1 so neuron

@@ -23,7 +23,7 @@ class Head(nn.Module):
         #cong thuc tinh score
         score = q @ k.transpose(-2, -1) / (HEAD_SIZE ** -0.5)
 
-        #nhung gia tri nao ma da loc = 0 thi cho la -inf. De khi vao softmax thi no la 0
+        #If the value equals to 0, set it to -INF.
         score = score.masked_fill(self.tril[:MAX_SEQ_LEN, :MAX_SEQ_LEN] == 0, -math.inf)
 
         if mask is not None:
@@ -33,4 +33,4 @@ class Head(nn.Module):
         score = self.dropout(score) #10% bo di gia tri cua softmax
 
         output = score @ v
-        return output
+        return output #shape(batch_size, seq_len, head_size)

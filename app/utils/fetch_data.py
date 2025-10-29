@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-from app.config.constant import DATASET_PATH
 from collections import deque
 
 class FetchData:
@@ -57,5 +56,3 @@ class FetchData:
         return text
     def write_file(data: str, filename):
         open(file=filename, mode='a', encoding='utf-8').write(data)
-            
-    # def get_data(root: str, prefix: str, depth: int = 1):

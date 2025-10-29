@@ -12,7 +12,7 @@ class Tokenizer:
         self.PAD_ID = None
 
 
-    def tokenizeWords(self, sentence):
+    def tokenize_words(self, sentence):
         '''
         This function is used to split word from a sentence
 
@@ -28,7 +28,7 @@ class Tokenizer:
        
         return re.split(r"(?<!\d),(?!\d)|[^\wÀ-ỹ\-]+", sentence.lower())
 
-    def modifyTokens(self, tokens):
+    def modify_tokens(self, tokens):
         '''
         This function is used to pad and truncate the list of tokens of each sentence to match MAX_SEQ_LEN
 
@@ -53,7 +53,7 @@ class Tokenizer:
         return tokens
 
 
-    def buildVocabs(self, sentences):
+    def build_vocabs(self, sentences):
         '''
         This function is used to get the vocabs from the list of sub-lists containing tokens of a sentence
 
@@ -67,11 +67,11 @@ class Tokenizer:
 
         # Get word in data
         for sentence in sentences:
-            tokens = self.modifyTokens(self.tokenizeWords(sentence))
+            tokens = self.modify_tokens(self.tokenize_words(sentence))
             words.extend(tokens)
 
         # Unique vocab set + special tokens
-        vocabs = sorted(set(self.special_tokens+ words))
+        vocabs = sorted(set(self.special_tokens + words))
 
         # Build dicts
         self.word2idx = {w: i for i, w in enumerate(vocabs)}
@@ -83,7 +83,7 @@ class Tokenizer:
         self.PAD_ID = self.word2idx['<PAD>']
 
 
-    def getVocabSize(self):
+    def get_vocab_size(self):
         return len(self.idx2word)
 
 
@@ -101,14 +101,14 @@ class Tokenizer:
         List that contains the IDs of corresponding words
         '''
 
-        tokens = self.modifyTokens(self.tokenizeWords(text))
+        tokens = self.modify_tokens(self.tokenize_words(text))
         ids = [self.word2idx.get(token, self.UNK_ID) for token in tokens]
 
         return ids
     
     def decode(self, ids):
         '''
-        This functionis used to convert IDs into words
+        This function is used to convert IDs into words
 
         Parameters
         ----------
